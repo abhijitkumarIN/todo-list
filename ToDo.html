@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Lobster&family=Pacifico&display=swap"
+        rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #all {
+            width: 240px;
+            text-align: center;
+            margin: auto;
+        }
+
+        #holder {
+            text-align: center;
+            width: 240px;
+            box-shadow: 0 3px 4px rgba(40, 191, 199, 0.585);
+
+            padding-bottom: 30px;
+            border-radius: 20px;
+        }
+
+        /* demo */
+        #demo {
+            padding-top: 20px;
+
+
+            width: 100%;
+            text-align: center;
+        }
+
+        #alerting {
+            box-shadow: inset 0 0px 3px rgb(40, 191, 199);
+            border-radius: 20px;
+            padding-top: 10px;
+            box-sizing: border-box;
+            padding-bottom: 10px;
+            width: 240px;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        #alerting h3 {
+            font-family: 'Hina Mincho', serif;
+            color: rgb(40, 191, 199);
+
+            margin-top: -2px;
+            margin-bottom: -10px;
+            text-transform: uppercase;
+        }
+
+        #alerting p {
+            font-family: 'Hina Mincho', serif;
+            box-shadow: inset 0 0 3px #c0c0c0;
+            margin-left: 10px;
+            color: rgb(224, 223, 220);
+            margin-right: 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            padding: 5px 5px 5px 5px;
+
+
+        }
+
+
+        #holding p {
+            float: left;
+        }
+
+
+        #alerting {
+
+            width: 240px;
+        }
+
+        input {
+            font-family: 'Hina Mincho', serif;
+            outline: none;
+            border: none;
+            background: transparent;
+        
+            font-size: 16.4px;
+            
+
+            width: 200px;
+            color: white;
+            border-radius: 10px;
+            box-shadow:inset 0 0 4px #c0c0c0;
+            margin-bottom: 15px;
+            padding: 5px 5px 5px 5px;
+        }
+
+        button {
+
+            width: 90px;
+            margin-left: 2px;
+            margin-right: 2px;
+            border-radius: 20px;
+            height: 35px;
+
+            border: none;
+            background-image: linear-gradient(to right, rgb(40, 191, 199), rgb(208, 18, 221));
+            box-shadow: 0 2px 3px rgba(40, 191, 199, 0.585);
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--  -->
+    <div id="all">
+
+        <div id="holder">
+            <p id="demo" title="Number of the Task"></p>
+            <br>
+            <input type="text" onfocus="this.value=''" placeholder="Title" id="text2"> <br>
+            <input type="text" onfocus="this.value=''" placeholder="Task" id="text">
+
+            <br> <button onclick="ssend()">ADD ➕</button>
+        </div>
+        <nav id="holding">
+
+        </nav>
+
+    </div>
+
+
+
+
+    <script>
+        // all varibel as globel varibel 
+
+        function ssend() {
+            setTimeout(() => {
+                counts = document.getElementById("holding").childElementCount;
+                document.getElementById("demo").innerHTML = counts;
+            }, 1000);
+
+            var hold = document.getElementById("text").value;
+
+            var titles = document.getElementById("text2").value;
+
+            var hol = document.getElementById("holding");
+
+            var del = document.createElement("button");
+            var btn = document.createElement("button");
+            btn.innerHTML = "EDIT 🖊️";
+            var mess = document.createElement("p");
+
+            del.innerHTML = "DELETE 🗑️";
+
+
+            if (hold == "") {
+                alert(" this To do list is empty ");
+            }
+            else {
+
+
+                var creat_one = document.createElement("p");
+                // carete one other alement for deltering 
+
+
+                del.setAttribute("id", "del");
+
+
+                // display hidiing
+                del.onclick = function () {
+                    var con = confirm("delete ?");
+                    if (con) {
+                        this.parentNode.remove();
+                        creat_one.remove();
+                    }
+                }
+
+                // null input box after taking input
+
+                function null_clear() {
+                    hold.value = "  ";
+                    titles.value = " ";
+
+                }
+                null_clear();
+
+                var date = new Date();
+                var time = date.getDate();
+
+                // creating
+                creat_one.setAttribute("id", "alerting");
+
+                var messege = mess.innerHTML = hold;
+
+                creat_one.innerHTML = "<h3>" + titles + "</h3>" + "<br>" + messege + "<br>  <p>" + date + "</p>";
+
+                hol.append(creat_one);
+
+                creat_one.append(del);
+
+                creat_one.append(btn);
+
+                // editbale making of the tod list
+                btn.onclick = function () {
+                    if (btn.innerHTML === "EDIT 🖊️") {
+                        creat_one.setAttribute("contenteditable", "true");
+                        btn.setAttribute("contenteditable", "false");
+                        del.setAttribute("contenteditable", "false");
+                        btn.innerHTML = "SAVE 💾";
+                        alert(" Now you can modify this current to do list")
+                    }
+                    else {
+                        btn.innerHTML = "EDIT 🖊️"
+                        creat_one.setAttribute("contenteditable", "false");
+                        alert("Saved ")
+                    }
+
+                }
+
+            }
+
+
+
+            hold = " ";
+            titles = " ";
+
+        }
+
+
+
+
+    </script>
+
+
+    </script>
+</body>
+
+</html>
